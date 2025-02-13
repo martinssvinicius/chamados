@@ -1,0 +1,59 @@
+CONSIDERAÇÕES INICIAIS:
+
+- Desenvolver após o chamado 450124.
+- Neste chamado vamos desenvolver a rotina de Mandato do Conselho Municipal de Educação.
+
+
+DESENVOLVIMENTO:
+
+Cadastrar uma nova rotina no EGA para a nova rotina de Mandato do Conselho Municipal de Educação.
+Cadastrar os formulários padrão para a nova rotina (consultar, incluir, alterar, excluir e visualizar) e formulários para as ações de ativar e desativar.
+Relacionado ao chamado existe um script para criação da tabela da nova rotina, criar novo modelo e persistência com base nas informações dessa tabela, utilizar a nomenclatura base "ConselhoMunicipalEducacaoMandato".
+Para todas as novas rotinas criadas neste chamado deverá ser criado também a respectiva origem de dados, para que possamos utilizar essas informações em futuros relatórios.
+
+1 CONSELHO MUNICIPAL DE EDUCAÇÃO (Gestão Administrativa Escolar » Gestão » Conselho Municipal de Educação)
+1.1 CONSULTA
+- Adicionar após todas as ações a ação "Mandato".
+
+2 MANDATO DO CONSELHO MUNICIPAL DE EDUCAÇÃO (Gestão Administrativa Escolar » Gestão » Conselho Municipal de Educação » Mandato)
+2.1 CONSULTA 
+- Adicionar os campos:
+* Código: Inicialmente oculto; Carregar o código da própria rotina.
+* Descrição: Carregar a descrição do Mandato.
+** Agrupamento: Conselho Municipal de Educação; Adicionar nesse agrupamento os campos de código (inicialmente oculto) e nome do Conselho Municipal de Educação relacionado ao mandato.
+* Vigência Inicial: Inicialmente oculto; Carregar com a data de início do mandato.
+* Vigência Final: Carregar com a data de término do mandato.
+* Ativo: Campo Booleano que informará se o registro está ativo.
+
+- A consulta deverá ser filtrada pelo CME que foi selecionado anteriormente.
+- Adicionar as ações de ativar e desativar, não permitir desativar registros desativados e nem ativar registros ativos.
+
+2.2 MANUTENÇÃO
+- Desenvolver conforme arquivo "Mandatos" relacionado ao requisito "RF_EGA276", haverá algumas alterações em alguns campos, conforme apresentado abaixo.
+- Campos:
+* Código; Serial.
+* Conselho Municipal de Educação: Campo externo de Conselho Municipal de Educação; Bloquear e carregar com o conselho que foi selecionado anteriormente.
+* Descrição: Campo Texto; Obrigatório; Máx. 100 caracteres.
+* Categoria: Categoria do texto jurídico, será o mesmo componente que foi implementado na tela de cadastro do Conselho Municipal de Educação.
+* Texto Jurídico: Campo externo de Texto Jurídico; Obrigatório; Será o mesmo campo que foi implementado na tela de manutenção do CME; Ao selecionar um registro neste campo, deverá ser carregado automaticamente o campo acima com a categoria deste texto jurídico; Esse campo deve sempre ser filtrado pela categoria que foi informada no campo acima.
+* Ementa: Campo Texto; Desabilitado; Carregar com a Ementa do Texto Jurídico selecionado, realizar esse carregamento dinâmicamente quando o texto jurídico for carregado.
+* Vigência Inicial: Campo Data; Obrigatório; Quando este campo estiver sem valor, e for informado um texto jurídico, então carregar esse campo com a data de ínicio da vigência do texto jurídico.
+* Vigência Final: Campo Data; Obrigatório; Agrupar este campo com o campo de Vigência Inicial, de modo que este fique a sua direita, colocar o texto divisor como "até"; 
+- Quando este campo estiver sem valor, e for informado um texto jurídico, então carregar esse campo com a data de término da vigência do texto jurídico; 
+- Não permitir que o valor deste campo seja maior que o valor do campo "Vigência Inicial".
+* Reconduções Permitidas: Campo Lista; Obrigatório; Carregar a lista com as opções: 0 - "Nenhuma", 1 - "Uma", 2 - "Duas", 3 - "Três", 4 - "Quatro".
+
+2.2.1 PROCESSAMENTO
+- Validar para que não permita incluir um Mandato caso este que está sendo incluído compreender o mesmo período de datas de outro mandato que esteja ativo. Ex.: Se existir um mandato ativo com data 01/01/2022 até 01/01/2024, apenas será possível incluir outro mandato com data de término anterior a 01/01/2022, ou com data de início posterior a 01/01/2024. Caso seja incluído um Mandato com esse conflito de datas emitir a mensagem de alerta: "Já existe um Mandato ativo com vigência para o período {dataInicioMandato} até {dataTerminoMandato}".
+
+
+TESTES:
+- Acessar a ação de Mandato na consulta de Conselho Municipal de Educação.
+- Verificar que devem ser filtrados apenas mandatos relacionados ao CME que foi selecionado.
+- Acessar a inclusão.
+- Verificar se o campo de Conselho Municipal de Educação é carregado com o CME que foi selecionado anteriormente.
+- Verificar se o campo de texto jurídico é filtrado pelo campo de categoria.
+- Ao informar o texto jurídico, deve ser carregado o campo de categoria com a categoria do texto.
+- O campo de Ementa deve ser carregado com a Ementa do texto jurídico ao selecionado o campo externo de texto jurídico.
+- Não deve ser possível informar uma data de vigência final menor que a vigência inicial.
+- Não deve ser possível incluir um Mandato caso já exista um mandato ativo que compreenda as datas do mandato que está sendo incluído.
