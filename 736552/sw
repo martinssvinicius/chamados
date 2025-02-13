@@ -1,0 +1,29 @@
+CONSIDERAÇÕES INICIAIS:
+- Neste chamado vamos desenvolver a rotina de Tipo de Cargo do Conselho Municipal de Educação.
+
+DESENVOLVIMENTO:
+- Há um script relacionado ao chamado que faz a criação da tabela de Tipo de Cargo do CME, com base nela realizar a criação do modelo, persistência e view de origem; Sugiro a nomenclatura base "CmeTipoCargo".
+- A tabela "tbcmetipocargo" é uma tabela que é povoada através da atualização do pacote do EGA, portanto em sua persistência tem que ser implementado o método "getSqlAtualizacao", dá pra se basear em como foi feito na "PersistenciaTipoCargo".
+
+1 TIPO DE CARGO DO CONSELHO MUNICIPAL DE EDUCAÇÃO (Gestão Administrativa Escolar » Cadastros » Tipos » Cargo do Conselho Municipal de Educação)
+1.1 CONSULTA
+* AÇÕES:
+- Adicionar as ações padrão e a ação de ativar/desativar, Aplicar o camportamento padrão nas ações de ativar/desativar.
+- Registros com o tipo de registro "Padrão IPM" devem ter ações grid habilitadas apenas na base padrão.
+
+* CAMPOS:
+- Código.
+- Tipo de Registro.
+- Descrição.
+
+1.2 MANUTENÇÃO
+* CAMPOS
+- Código; Campo Serial.
+- Descrição: Campo Texto; Obrigatório; Limitar em 100 caracteres.
+
+* PROCESSAMENTO
+- Sempre que o registro for incluído pela base padrão deverá ser incluso com o tipo "Padrão IPM", caso contrário deve ser incluso com o tipo "Próprio".
+
+TESTES:
+- Incluir um registro, verificar que quando estiver na base padrão o registro deve ficar com o tipo "Padrão IPM" e caso contrário deve ser "Próprio".
+- Verificar que registros padrão IPM não devem ter suas ações grid habilitadas quando o acesso não for pela base padrão.
