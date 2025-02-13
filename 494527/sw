@@ -1,1 +1,32 @@
+CONSIDERAÇÕES INICIAIS:
 
+- Desenvolver após o chamado 450124.
+- Neste chamado vamos desenvolver a rotina de Anexos do Conselho Municipal de Educação.
+
+
+DESENVOLVIMENTO:
+
+- Relacionado ao chamado tem um script que cria a tabela de anexos do CME.
+- Criar Modelo de Persistência com base nas informações dess nova tabela.
+- Criar uma nova rotina no sistema para os anexos do CME.
+
+- Para auxílio nessa rotina de anexos existem diversas outras rotinas que dá pra utilizar como base, como por exemplo: Anexos do Aluno (Gestão Administrativa Escolar » Cadastros » Alunos » Anexos).
+
+1 CONSELHO MUNICIPAL DE EDUCAÇÃO (Gestão Administrativa Escolar » Gestão » Conselho Municipal de Educação)
+1 CONSULTA
+- Adicionar por último a ação "Anexos".
+
+2 ANEXOS DO CONSELHO MUNICIPAL DE EDUCAÇÃO (Gestão Administrativa Escolar » Gestão » Conselho Municipal de Educação » Anexos)
+2.1 CONSULTA
+- Devem ser filtrados apenas registros de anexos relacionados ao conselho que estava selecionado na tela anterior.
+
+2.2 UPLOAD
+- Na aba "Dados da Classe" adicionar os seguintes campos:
+* Conselho Municipal de Educação: Campo Externo do CME; Desabilitado; Deve ser carregado com o CME que foi selecionado na consulta de CME.
+* Tipo de Documento: Campo Lista; Obrigatório; Opções: 1 - "Parecer", 2 - "Resolução", 3 - "Indicação", 4 - "Relatório Circunstanciado", 5 - "Ofício" e 6 - "Outros".
+
+
+TESTES:
+- Acessar a consulta de anexo do CME.
+- Verificar se são filtrados apenas anexos relacionados ao CME que foi selecionado na consulta anterior.
+- Na ação de Upload, na aba de Dados da Classe, verificar se o campo de Conselho Municipal de Educação vem bloqueado e carregado com o CME informado anteriormente.
