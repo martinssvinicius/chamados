@@ -1,1 +1,52 @@
 
+CONSIDERAÇÕES INICIAIS:
+
+- Desenvolver após o chamado 494515.
+- Neste chamado será desenvolvido a rotina de Membros do Mandato do Conselho Municipal de Educação.
+
+
+DESENVOLVIMENTO:
+
+- Criar modelo, persistência e view origem para a nova tabela criada no script do chamado.
+- Sugiro que o nome das classes bases sejam: "CmeMandatoMembro".
+
+1 MANDATO DO CONSELHO MUNICIPAL DE EDUCAÇÃO (Gestão Administrativa Escolar » Gestão » Conselho Municipal de Educação » Mandato)
+1.1 CONSULTA
+- Adicionar por último a ação "Membros", colocar um ícone condizente com essa rotina.
+
+2 MEMBROS DO CONSELHO MUNICIPAL E EDUCAÇÃO (Gestão Administrativa Escolar » Gestão » Conselho Municipal de Educação » Mandato » Membros)
+2.1 CONSULTA
+* HINT; Apresentar as seguinte informações:
+- Cód. CME - Nome CME
+- Descrição 
+* AÇÕES:
+- Ações padrão.
+- Ativar/Desativar; Aplicar o comportamento padrão de ações de ativar/desativar.
+* CAMPOS:
+- Cód. Único: Inicialmente oculto; Será o código único do membro.
+- Nome: Nome que consta no cadastro único do membro.
+- Ativo: Campo booleano que carrega com sim ou não, de acordo com a situação do registro.
+
+2.2 MANUTENÇÃO
+* CAMPOS:
+- Conselho Municipal de Educação: Campo Externo do CME; Deve ficar bloqueado e carregado com o CME relacionado ao mandato.
+- Mandato: Campo Externo de Mandato do CME; Deve ficar bloqueado e carregado com o mandato que foi selecionado anteriormente.
+- Membro: Campo Externo de Pessoa do WUN; Obrigatório; Não permitir alterar.
+- Entidade Parceira: Campo Externo de Entidade Parceira; Opcional;
+- Classificação: Campo Lista; Obrigatório; Opções: 1 - Titular, 2 - Suplente; Não permitir alterar;
+
+* VALIDAÇÕES:
+- Ao incluir um registro com a classificação "Titular", verificar quantos membros ativos estão relacionados ao mandato atual. Se a quantidade foi maior ou igual a quantidade de titulares definida no CME deve ser apresentado a mensagem de alerta: "A quantidade de {classificaçãoMembro} ativos já foi atingida para o Mandato {descriçãoMandato} conforme definido no {nomeCme}".
+- Exatamente a mesma coisa deve ser realizada considerando a inclusão de um membro suplente, a diferença nesse caso é que deve contabilizar apenas a quantidade de suplentes definida no CME.
+- Essa validação também deve ser realizada na ativação de um membro.
+
+- Ao incluir um membro para um Mandato deve ser verificado em quantos mandatos do mesmo CME este membro está com situação ativa, se essa quantidade for maior ou igual a quantidade de reconduções definidas no mandato deve ser disparado a seguinte mensagem de alerta: "O Membro {nomePessoa} já atingiu a quantidade máxima de {qtdReconducaoMandatoAtual} reconduções definidas no Mandato {descricaoMandatoAtual}.".
+
+
+TESTES:
+- Acessar a tela de manutenção do membro.
+- Verificar que o campo de Conselho Municipal de Educação deve ser carregado com o CME relacionado ao mandato.
+- O campo de Mandato deve ser carregado com o mandato que foi selecionado anteriormente.
+- O campo de membro não deve ficar habilitado na alteração.
+- Ao incluir um novo membro titular deve ser verificado a quantidade de membros titulares ativos que estão relacionadas ao mandato atual, caso a quantidade seja maior que a quantidade de titulares definidas no CME deve ser apresentado uma mensagem de alerta que não permita a inclusão.
+- Ao incluir um membro, deve ser verificado a quantidade de outros mandatos do mesmo CME em que esta pessoa possuí situação ativa, caso a quantidade seja maior que a quantidade de reconduções definidas no cadastro do mandato deve ser disparado a mensagem de alerta informada na análise.
